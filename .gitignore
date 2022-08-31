@@ -1,0 +1,4 @@
+/node_modules
+.prettierignore
+.prettierrc.yml
+README.md

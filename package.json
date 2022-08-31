@@ -1,0 +1,40 @@
+{
+	"name": "boldor",
+	"version": "1.0.0",
+	"description": "Work with the bolivar and the dollar as currencies in your projects.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MeeL1ght/boldor.git"
+	},
+	"bugs": {
+		"url": "https://github.com/MeeL1ght/boldor/issues",
+		"email": "meelight12@gmail.com"
+	},
+	"homepage": "https://github.com/MeeL1ght/boldor#readme",
+	"author": {
+		"name": "Moi",
+		"email": "meelight12@gmail.com",
+		"url": "https://www.github.com/MeeL1ght"
+	},
+	"license": "MIT",
+	"main": "index.js",
+	"type": "module",
+	"files": [
+		"src",
+		"index.js",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"publish": "npm publish",
+		"dev": "npx nodemon index.js",
+		"pretty": "prettier -w ./**/*.js"
+	},
+	"dependencies": {
+		"decimal.js-light": "^2.5.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.19",
+		"prettier": "^2.7.1"
+	}
+}
