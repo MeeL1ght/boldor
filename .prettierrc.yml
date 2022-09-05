@@ -1,0 +1,16 @@
+# Setup
+tabWidth: 2
+semi: false
+useTabs: true
+singleQuote: true
+quoteProps: 'as-needed'
+printWidth: 63
+trailingComma: 'all' # default: "es5"
+bracketSpacing: true
+bracketSameLine: true
+arrowParens: 'avoid'
+requirePragma: false
+insertPragma: false
+proseWrap: 'always' # default: "preserve"
+embeddedLanguageFormatting: 'auto'
+endOfLine: 'lf'
