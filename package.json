@@ -27,7 +27,7 @@
 	],
 	"scripts": {
 		"publish": "npm publish",
-		"dev": "npx nodemon index.js",
+		"dev": "npx nodemon ./test/index.js",
 		"pretty": "prettier -w ./**/*.js"
 	},
 	"dependencies": {
