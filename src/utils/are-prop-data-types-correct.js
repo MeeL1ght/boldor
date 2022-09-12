@@ -18,7 +18,7 @@ export const arePropDataTypesCorrect = ({
 		if (propName === 'currency')
 			if (!isCorrectCurrency) return false
 		// decimals
-		if (propName === 'decimals' && dataType !== 'number')
+		if (propName === 'precision' && dataType !== 'number')
 			return false
 		// separator
 		if (propName === 'separator' && dataType !== 'string')
