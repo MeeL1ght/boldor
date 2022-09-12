@@ -1,6 +1,6 @@
 # boldor
 
-https://app.travis-ci.com/MeeL1ght/boldor.svg?branch=main
+![build badge](https://app.travis-ci.com/MeeL1ght/boldor.svg?branch=main)
 
 <h2>
   Work with the
