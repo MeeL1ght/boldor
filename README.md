@@ -1,5 +1,7 @@
 # boldor
 
+https://app.travis-ci.com/MeeL1ght/boldor.svg?branch=main
+
 <h2>
   Work with the
   <span style="color: #e6d073">Bs bolivar</span> and the
