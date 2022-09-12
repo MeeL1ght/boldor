@@ -1,6 +1,6 @@
 # boldor
 
-![build badge](https://app.travis-ci.com/MeeL1ght/boldor.svg?branch=main)
+![build gh pages](https://github.com/MeeL1ght/boldor/actions/workflows/pages.yml/badge.svg)
 
 <h2>
   Work with the
