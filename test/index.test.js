@@ -3,7 +3,8 @@ import Boldor from './../boldor.mjs'
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	precision: 2,
+	precision: 3,
+  currency: 12
 })
 
 console.clear() // Don't remove me please hhhhh

@@ -1,13 +1,14 @@
 import { hasValue } from './has-value.js'
 
 /**
- * @param {{ propNames: Array<string>, dataTypes: Array<string> }}
+ * @param {Array<string>} propNames
+ * @param {Array<string>} dataTypes
  * @return {boolean}
  */
-export const arePropDataTypesCorrect = ({
+export const isValidDataTypesBoldorProps = (
 	propNames,
 	dataTypes,
-}) => {
+) => {
 	for (const [index, propName] of propNames.entries()) {
 		const dataType = dataTypes[index]
 		const isCorrectCurrency = hasValue(
@@ -17,7 +18,7 @@ export const arePropDataTypesCorrect = ({
 		// currency
 		if (propName === 'currency')
 			if (!isCorrectCurrency) return false
-		// decimals
+		// precision
 		if (propName === 'precision' && dataType !== 'number')
 			return false
 		// separator

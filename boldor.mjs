@@ -1,5 +1,12 @@
-// Code => For Browser
+/*
+ * boldor v0.1.0
+ * Work with the bolivar and dollar as currencies in your projects.
+ * https://github.com/MeeL1ght/boldor
+ * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
+ * MIT Licence
+ */
 
+// Setup
 import {
 	DEFAULT_CURRENCY,
 	DEFAULT_PRECISION,
@@ -10,12 +17,10 @@ import {
 	ALLOWED_LANG_VALUES,
 } from './src/schemas/setup.js'
 
+// Utils
 import ErrorHandler from './src/schemas/error-handler.js'
-import { arePropDataTypesCorrect } from './src/utils/are-prop-data-types-correct.js'
+import { isValidDataTypesBoldorProps } from './src/utils/is-valid-data-types-boldor-props.js'
 import { getDataTypes } from './src/utils/get-data-types.js'
-// Eliminar :v
-import { getValuesWithDoubleQuotes } from './src/utils/get-values-with-double-quotes.js'
-
 import { hasValue } from './src/utils/has-value.js'
 import { isNotOnTheSecondList } from './src/utils/is-not-on-the-second-list.js'
 
@@ -33,7 +38,7 @@ export default class Boldor {
 	 * Create a price.
 	 * @constructor
 	 * @param {object} setup
-	 * @param {number} setup.currency
+	 * @param {number|string} setup.currency
 	 * @param {number} setup.precision
 	 * @param {string} setup.separator
 	 * @param {string} setup.lang
@@ -48,57 +53,40 @@ export default class Boldor {
 	) {
 		// Checking the total number of arguments
 		if (arguments.length > 1)
-			throw ErrorHandler.totalInvalidArguments({
-				minArguments: 0,
-				maxArguments: 1,
-			})
+			throw ErrorHandler.totalInvalidArguments(0, 1)
 
 		const propNames = Object.keys(setup)
 		const dataTypes = getDataTypes(setup)
 
 		// Checking if the data types of the properties are valid
-		if (
-			!arePropDataTypesCorrect({
-				propNames: propNames,
-				dataTypes: dataTypes,
-			})
-		) {
+		if (!isValidDataTypesBoldorProps(propNames, dataTypes)) {
 			throw ErrorHandler.dataTypeInvalidProperty()
 		}
 		// Checking if the object's properties are valid
 		if (isNotOnTheSecondList(propNames, ALLOWED_PROPS_NAMES))
-			throw ErrorHandler.invalidProperty(ALLOWED_PROPS_NAMES)
-
-		// EMPEZAR A REALIZAR MÉTODOS DE LOS MENSAJES DE
-		// ERROR Y LLAMARLOS ACÁ EN LA CLASE :v
+			throw ErrorHandler.invalid(
+				'property',
+				ALLOWED_PROPS_NAMES,
+			)
 
 		// precision validation
 		if (setup.precision < 0 || setup.precision > 12)
-			throw Error(DEFAULT_ERROR_MESSAGE, {
-				cause:
-					'Incorrect value. ' +
-					'[Allowed values]: min => 0; max => 12',
-			})
+			throw ErrorHandler.valueOutOfRange(1, 12)
+
 		// separator validation
 		if (setup?.separator)
 			if (!hasValue(ALLOWED_SEPARATOR_VALUES, setup.separator))
-				throw Error('', {
-					cause:
-						'Incorrect value. ' +
-						`[Allowed values]: ${getValuesWithDoubleQuotes(
-							ALLOWED_SEPARATOR_VALUES,
-						)}`,
-				})
+				throw ErrorHandler.invalid(
+					'value',
+					ALLOWED_SEPARATOR_VALUES,
+				)
 		// lang validation
 		if (setup?.lang)
 			if (!hasValue(ALLOWED_LANG_VALUES, setup.lang))
-				throw Error('', {
-					cause:
-						'Incorrect value. ' +
-						`[Allowed values]: ${getValuesWithDoubleQuotes(
-							ALLOWED_LANG_VALUES,
-						)}`,
-				})
+				throw ErrorHandler.invalid(
+					'value',
+					ALLOWED_LANG_VALUES,
+				)
 
 		try {
 			this.#currency = setup?.currency ?? DEFAULT_CURRENCY

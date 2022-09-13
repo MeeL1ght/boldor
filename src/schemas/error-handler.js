@@ -58,62 +58,80 @@ export default class ErrorHandler {
 		return Error(finalMessage)
 	}
 	/**
-	 * @param {{ minArguments: number|null, maxArguments: number|null }}
+	 * @param {number} min
+	 * @param {number} max
 	 * @return {Error}
 	 */
-	totalInvalidArguments({ minArguments, maxArguments }) {
+	totalInvalidArguments(min, max) {
 		let tempMessage = ''
+		let argumentsMessage = ''
 
-		if (typeof minArguments !== 'number') minArguments = null
-		if (typeof maxArguments !== 'number') maxArguments = null
-
-		if (minArguments === 0 && maxArguments === 0) {
-			minArguments = null
-			maxArguments = null
+		if (min === 0 && max === 0) {
+			tempMessage = 'No argument expected'
+			argumentsMessage = tempMessage
 		}
 
-		if (
-			(minArguments === 0 && maxArguments !== 0) ||
-			(minArguments !== 0 && maxArguments !== 0)
-		) {
-			tempMessage = `[min: ${minArguments}] & [max: ${maxArguments}]`
-		} else tempMessage = `[max: ${maxArguments}]`
-
-		const expectedArgumentsMessage = `Expected: ${tempMessage}`
+		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
+			argumentsMessage = `Expected: ${tempMessage}`
+			tempMessage = `[min: ${min}] & [max: ${max}]`
+		} else {
+			argumentsMessage = `Expected: ${tempMessage}`
+			tempMessage = `[max: ${max}]`
+		}
 
 		this.#message = `${
 			this.#boldorError
-		} Total invalid arguments. ${expectedArgumentsMessage}.`
+		} Total invalid arguments. ${argumentsMessage}.`
 
 		return Error(this.#message)
 	}
 	/**
-	 * @param {{ minArguments: number|null, maxArguments: number|null }}
+	 * @param {number} min
+	 * @param {number} max
 	 * @return {Error}
 	 */
-	static totalInvalidArguments({
-		minArguments,
-		maxArguments,
-	}) {
+	static totalInvalidArguments(min, max) {
 		let tempMessage = ''
+		let argumentsMessage = ''
 
-		if (typeof minArguments !== 'number') minArguments = null
-		if (typeof maxArguments !== 'number') maxArguments = null
-
-		if (minArguments === 0 && maxArguments === 0) {
-			minArguments = null
-			maxArguments = null
+		if (min === 0 && max === 0) {
+			tempMessage = 'No argument expected'
+			argumentsMessage = tempMessage
 		}
 
-		if (
-			(minArguments === 0 && maxArguments !== 0) ||
-			(minArguments !== 0 && maxArguments !== 0)
-		) {
-			tempMessage = `[min: ${minArguments}] & [max: ${maxArguments}]`
-		} else tempMessage = `[max: ${maxArguments}]`
+		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
+			argumentsMessage = `Expected: ${tempMessage}`
+			tempMessage = `[min: ${min}] & [max: ${max}]`
+		} else {
+			argumentsMessage = `Expected: ${tempMessage}`
+			tempMessage = `[max: ${max}]`
+		}
 
-		const expectedArgumentsMessage = `Expected: ${tempMessage}`
-		const message = `${BOLDOR_ERROR} Total invalid arguments. ${expectedArgumentsMessage}.`
+		const message = `${BOLDOR_ERROR} Total invalid arguments. ${argumentsMessage}.`
+
+		return Error(message)
+	}
+	/**
+	 * @param {string} refName
+	 * @param {Array<string>} list
+	 * @return {Error}
+	 */
+	invalid(refName, list) {
+		this.#message =
+			`${this.#boldorError} The ${refName} is invalid. ` +
+			`[Allowed]: ${getValuesWithDoubleQuotes(list)}.`
+
+		return Error(this.#message)
+	}
+	/**
+	 * @param {string} refName
+	 * @param {Array<string>} list
+	 * @return {Error}
+	 */
+	static invalid(refName, list) {
+		const message =
+			`${BOLDOR_ERROR} The ${refName} is invalid. ` +
+			`[Allowed]: ${getValuesWithDoubleQuotes(list)}.`
 
 		return Error(message)
 	}
@@ -121,12 +139,17 @@ export default class ErrorHandler {
 	 * @param {Array<string>} propNamesList
 	 * @return {Error}
 	 */
-	invalidProperty(propNamesList) {
+	dataTypeInvalidProperty(propNamesList = []) {
+		const finalPropNamesList =
+			propNamesList.length === 0
+				? DEFAULT_DATA_TYPES_PROPS_MESSAGE
+				: getValuesWithDoubleQuotes(propNamesList)
+
 		this.#message =
-			`${this.#boldorError} There is an invalid property. ` +
-			`[Allowed properties]: ${getValuesWithDoubleQuotes(
-				propNamesList,
-			)}.`
+			`${
+				this.#boldorError
+			} The data type of a property is invalid. ` +
+			`[Allowed data types]: ${finalPropNamesList}.`
 
 		return Error(this.#message)
 	}
@@ -134,16 +157,6 @@ export default class ErrorHandler {
 	 * @param {Array<string>} propNamesList
 	 * @return {Error}
 	 */
-	static invalidProperty(propNamesList) {
-		const message =
-			`${BOLDOR_ERROR} There is an invalid property. ` +
-			`[Allowed properties]: ${getValuesWithDoubleQuotes(
-				propNamesList,
-			)}.`
-
-		return Error(message)
-	}
-	dataTypeInvalidProperty() {}
 	static dataTypeInvalidProperty(propNamesList = []) {
 		const finalPropNamesList =
 			propNamesList.length === 0
@@ -153,6 +166,30 @@ export default class ErrorHandler {
 		const message =
 			`${BOLDOR_ERROR} The data type of a property is invalid. ` +
 			`[Allowed data types]: ${finalPropNamesList}.`
+
+		return Error(message)
+	}
+	/**
+	 * @param {number} min
+	 * @param {number} max
+	 * @return {Error}
+	 */
+	valueOutOfRange(min, max) {
+		this.#message =
+			`${this.#boldorError} The value is out of range.` +
+			`[min: ${min}] & [max: ${max}].`
+
+		return Error(this.#message)
+	}
+	/**
+	 * @param {number} min
+	 * @param {number} max
+	 * @return {Error}
+	 */
+	static valueOutOfRange(min, max) {
+		const message =
+			`${BOLDOR_ERROR} The value is out of range.` +
+			`[min: ${min}] & [max: ${max}].`
 
 		return Error(message)
 	}
