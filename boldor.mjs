@@ -93,11 +93,146 @@ export default class Boldor {
 			this.#precision = setup?.precision ?? DEFAULT_PRECISION
 			this.#separator = setup?.separator ?? DEFAULT_SEPARATOR
 			this.#lang = setup?.lang ?? DEFAULT_LANG
+
+			return this
 		} catch (error) {
 			console.error(error)
 		}
+	}
+	/** @return {number|string} */
+	get currency() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
 
-		return this
+		try {
+			return this.#currency
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @param {number|string} currency */
+	set currency(currency) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
+		const dataTypesOfCurrency = ['number', 'string']
+
+		if (!hasValue(dataTypesOfCurrency, typeof currency))
+			throw ErrorHandler.invalid(
+				'data type',
+				dataTypesOfCurrency,
+			)
+
+		try {
+			this.#currency = currency
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @return {number} */
+	get precision() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return this.#precision
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @param {number} precision */
+	set precision(precision) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
+		const DATA_TYPE_OF_PRECISION = 'number'
+
+		if (typeof precision !== DATA_TYPE_OF_PRECISION)
+			throw ErrorHandler.invalid(
+				'data type',
+				DATA_TYPE_OF_PRECISION,
+			)
+
+		if (precision < 0 || precision > 12)
+			throw ErrorHandler.valueOutOfRange(1, 12)
+
+		try {
+			this.#precision = precision
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @return {string} */
+	get separator() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return this.#separator
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @param {string} separator */
+	set separator(separator) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
+		const DATA_TYPE_OF_SEPARATOR = 'string'
+
+		if (typeof separator !== DATA_TYPE_OF_SEPARATOR)
+			throw ErrorHandler.invalid(
+				'data type',
+				DATA_TYPE_OF_SEPARATOR,
+			)
+
+		if (!hasValue(ALLOWED_SEPARATOR_VALUES, separator))
+			throw ErrorHandler.invalid(
+				'value',
+				ALLOWED_SEPARATOR_VALUES,
+			)
+
+		try {
+			this.#separator = separator
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @return {string} */
+	get lang() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return this.#lang
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @param {string} lang */
+	set lang(lang) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
+		const DATA_TYPE_OF_LANG = 'string'
+
+		if (typeof lang !== DATA_TYPE_OF_LANG)
+			throw ErrorHandler.invalid(
+				'data type',
+				DATA_TYPE_OF_LANG,
+			)
+
+		if (!hasValue(ALLOWED_SEPARATOR_VALUES, lang))
+			throw ErrorHandler.invalid(
+				'value',
+				ALLOWED_SEPARATOR_VALUES,
+			)
+
+		try {
+			this.#lang = lang
+		} catch (error) {
+			console.error(error)
+		}
 	}
 	/** @return {{ currency: number|string, precision: number, separator: string, lang: string }} */
 	getProps() {
@@ -107,59 +242,5 @@ export default class Boldor {
 			separator: this.#separator,
 			lang: this.#lang,
 		}
-	}
-	/** @return {number} */
-	getCurrency() {
-		// Checking the total number of arguments
-		if (arguments.length > 0)
-			throw Error('', {
-				cause:
-					'There may be an argument. [Allowed arguments]: 0',
-			})
-
-		return this.#currency
-	}
-	/** @return {this} */
-	setCurrency(currency) {
-		this.#currency = currency
-		return this
-	}
-	/** @return {number} */
-	getPrecision() {
-		// Checking the total number of arguments
-		if (arguments.length > 0)
-			throw Error('', {
-				cause:
-					'There may be an argument. [Allowed arguments]: 0',
-			})
-
-		return this.#precision
-	}
-	/** @return {this} */
-	setPrecision(precision) {
-		this.#precision = precision
-		return this
-	}
-	/** @return {string} */
-	getSeparator() {
-		// Checking the total number of arguments
-		if (arguments.length > 0)
-			throw Error('', {
-				cause:
-					'There may be an argument. [Allowed arguments]: 0',
-			})
-
-		return this.#separator
-	}
-	/** @return {string} */
-	getLang() {
-		// Checking the total number of arguments
-		if (arguments.length > 0)
-			throw Error('', {
-				cause:
-					'There may be an argument. [Allowed arguments]: 0',
-			})
-
-		return this.#lang
 	}
 }

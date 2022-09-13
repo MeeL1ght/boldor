@@ -74,6 +74,9 @@ export default class ErrorHandler {
 		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
 			argumentsMessage = `Expected: ${tempMessage}`
 			tempMessage = `[min: ${min}] & [max: ${max}]`
+		} else if (min === 0 && max === 0 && min === max) {
+			argumentsMessage = `Arguments to expect: `
+			tempMessage = `[total: ${max}]`
 		} else {
 			argumentsMessage = `Expected: ${tempMessage}`
 			tempMessage = `[max: ${max}]`
@@ -102,6 +105,9 @@ export default class ErrorHandler {
 		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
 			argumentsMessage = `Expected: ${tempMessage}`
 			tempMessage = `[min: ${min}] & [max: ${max}]`
+		} else if (min === 0 && max === 0 && min === max) {
+			argumentsMessage = `Arguments to expect: `
+			tempMessage = `[total: ${max}]`
 		} else {
 			argumentsMessage = `Expected: ${tempMessage}`
 			tempMessage = `[max: ${max}]`
@@ -125,7 +131,7 @@ export default class ErrorHandler {
 	}
 	/**
 	 * @param {string} refName
-	 * @param {Array<string>} list
+	 * @param {string|Array<string>} list
 	 * @return {Error}
 	 */
 	static invalid(refName, list) {
@@ -176,8 +182,8 @@ export default class ErrorHandler {
 	 */
 	valueOutOfRange(min, max) {
 		this.#message =
-			`${this.#boldorError} The value is out of range.` +
-			`[min: ${min}] & [max: ${max}].`
+			`${this.#boldorError} The value is out of range. ` +
+			`[Allowed] => [min: ${min}] & [max: ${max}].`
 
 		return Error(this.#message)
 	}
@@ -188,8 +194,8 @@ export default class ErrorHandler {
 	 */
 	static valueOutOfRange(min, max) {
 		const message =
-			`${BOLDOR_ERROR} The value is out of range.` +
-			`[min: ${min}] & [max: ${max}].`
+			`${BOLDOR_ERROR} The value is out of range. ` +
+			`[Allowed] => [min: ${min}] & [max: ${max}].`
 
 		return Error(message)
 	}
