@@ -3,7 +3,13 @@
 ![build gh pages](https://github.com/MeeL1ght/boldor/actions/workflows/pages.yml/badge.svg)
 
 <h2>
-  Work with the
+  A
+  <a
+    href="https://github.com/MikeMcl/decimal.js-light"
+    target="_BLANK"
+  >
+    decimal.js-light
+  </a> based library. Work with the
   <span style="color: #e6d073">Bs bolivar</span> and the
   <span style="color: #6fca49">💲 dollar</span> as
   currencies in your projects.

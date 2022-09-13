@@ -10,6 +10,17 @@
 		"url": "https://github.com/MeeL1ght/boldor/issues"
 	},
 	"homepage": "https://github.com/MeeL1ght/boldor#readme",
+	"keywords": [
+		"boldor",
+		"bolivar",
+		"dollar",
+		"currency",
+		"venezuela",
+		"usa",
+		"convertions",
+		"transactions",
+		"decimal"
+	],
 	"contributors": [
 		{
 			"name": "Moi",
@@ -25,14 +36,20 @@
 	"license": "MIT",
 	"main": "boldor.js",
 	"module": "boldor.mjs",
-  "browser": "boldor.js",
+	"browser": "boldor.js",
 	"type": "module",
 	"files": [
+		"doc",
 		"src",
 		"boldor.js",
+		"boldor.mjs",
 		"README.md",
-		"LICENSE"
+		"CHANGELOG.md",
+		"LICENSE.md"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"test": "npx nodemon ./test/index.test.js",
 		"pretty": "prettier -w ./**/*.js"
