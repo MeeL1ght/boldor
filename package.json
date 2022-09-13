@@ -1,6 +1,6 @@
 {
 	"name": "boldor",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Work with the bolivar and the dollar as currencies in your projects.",
 	"repository": {
 		"type": "git",
@@ -45,7 +45,7 @@
 		"boldor.mjs",
 		"README.md",
 		"CHANGELOG.md",
-		"LICENSE.md"
+		"LICENSE"
 	],
 	"publishConfig": {
 		"access": "public"
