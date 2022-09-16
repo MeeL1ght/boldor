@@ -1,11 +1,11 @@
 /**
- * @param {object|Array<any>} data
+ * @param {object|Array<any>} list
  * @return {Array<string>}
  */
-export function getDataTypes(data) {
+export function getDataTypes(list) {
 	if (arguments.length === 0) return []
-	if (typeof data === 'object')
-		return Object.values(data).map(value => typeof value)
+	if (typeof list === 'object')
+		return Object.values(list).map(value => typeof value)
 
-	return data.map(value => typeof value)
+	return list.map(value => typeof value)
 }

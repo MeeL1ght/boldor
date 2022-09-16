@@ -1,10 +1,13 @@
 /*
- * boldor v0.1.0
+ * boldor v0.1.4
  * Work with the bolivar and dollar as currencies in your projects.
  * https://github.com/MeeL1ght/boldor
  * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
  * MIT Licence
  */
+
+// Base
+import Decimal from 'decimal.js-light'
 
 // Setup
 import {
@@ -17,18 +20,19 @@ import {
 	ALLOWED_LANG_VALUES,
 } from './src/schemas/setup.js'
 
-// Utils
 import ErrorHandler from './src/schemas/error-handler.js'
-import { isValidDataTypesBoldorProps } from './src/utils/is-valid-data-types-boldor-props.js'
-import { getDataTypes } from './src/utils/get-data-types.js'
+
+// Utils
+import { isValidDataType } from './src/utils/is-valid-data-type.js'
 import { hasValue } from './src/utils/has-value.js'
 import { isNotOnTheSecondList } from './src/utils/is-not-on-the-second-list.js'
+import { getDataTypes } from './src/utils/get-data-types.js'
 
 /** The class represents a currency.
- * Currencies => (dollar | bolivar).
+ * Currencies => (bolivar & dollar).
  * @class
  */
-export default class Boldor {
+class Boldor {
 	// Attributes
 	#currency
 	#precision
@@ -38,7 +42,7 @@ export default class Boldor {
 	 * Create a price.
 	 * @constructor
 	 * @param {object} setup
-	 * @param {number|string} setup.currency
+	 * @param {number} setup.currency
 	 * @param {number} setup.precision
 	 * @param {string} setup.separator
 	 * @param {string} setup.lang
@@ -56,12 +60,7 @@ export default class Boldor {
 			throw ErrorHandler.totalInvalidArguments(0, 1)
 
 		const propNames = Object.keys(setup)
-		const dataTypes = getDataTypes(setup)
 
-		// Checking if the data types of the properties are valid
-		if (!isValidDataTypesBoldorProps(propNames, dataTypes)) {
-			throw ErrorHandler.dataTypeInvalidProperty()
-		}
 		// Checking if the object's properties are valid
 		if (isNotOnTheSecondList(propNames, ALLOWED_PROPS_NAMES))
 			throw ErrorHandler.invalid(
@@ -69,27 +68,47 @@ export default class Boldor {
 				ALLOWED_PROPS_NAMES,
 			)
 
+		// currency validation
+		if (!isValidDataType(setup.currency, ['number'])) {
+			throw ErrorHandler.invalid('data type', 'number')
+		}
 		// precision validation
-		if (setup.precision < 0 || setup.precision > 12)
-			throw ErrorHandler.valueOutOfRange(1, 12)
+		if (setup?.precision) {
+			if (!isValidDataType(setup.precision, ['number'])) {
+				throw ErrorHandler.invalid('data type', 'number')
+			}
 
+			if (setup.precision < 0 || setup.precision > 12)
+				throw ErrorHandler.valueOutOfRange(1, 12)
+		}
 		// separator validation
-		if (setup?.separator)
+		if (setup?.separator) {
+			if (!isValidDataType(setup.separator, ['string'])) {
+				throw ErrorHandler.invalid('data type', 'string')
+			}
+
 			if (!hasValue(ALLOWED_SEPARATOR_VALUES, setup.separator))
 				throw ErrorHandler.invalid(
 					'value',
 					ALLOWED_SEPARATOR_VALUES,
 				)
+		}
 		// lang validation
-		if (setup?.lang)
+		if (setup?.lang) {
+			if (!isValidDataType(setup.lang, ['string'])) {
+				throw ErrorHandler.invalid('data type', 'string')
+			}
+
 			if (!hasValue(ALLOWED_LANG_VALUES, setup.lang))
 				throw ErrorHandler.invalid(
 					'value',
 					ALLOWED_LANG_VALUES,
 				)
+		}
 
 		try {
-			this.#currency = setup?.currency ?? DEFAULT_CURRENCY
+			this.#currency =
+				+new Decimal(setup?.currency) ?? DEFAULT_CURRENCY
 			this.#precision = setup?.precision ?? DEFAULT_PRECISION
 			this.#separator = setup?.separator ?? DEFAULT_SEPARATOR
 			this.#lang = setup?.lang ?? DEFAULT_LANG
@@ -110,21 +129,22 @@ export default class Boldor {
 			console.error(error)
 		}
 	}
+	// PENDIENTE, CAMBIAR MÉTODO DE HASVALUE POR IS_VALID_DATA_TYPE
 	/** @param {number|string} currency */
 	set currency(currency) {
 		if (arguments.length !== 1)
 			throw ErrorHandler.totalInvalidArguments(1, 1)
 
-		const dataTypesOfCurrency = ['number', 'string']
+		const DATA_TYPE_OF_CURRENCY = 'number'
 
-		if (!hasValue(dataTypesOfCurrency, typeof currency))
+		if (!hasValue(DATA_TYPE_OF_CURRENCY, typeof currency))
 			throw ErrorHandler.invalid(
 				'data type',
-				dataTypesOfCurrency,
+				DATA_TYPE_OF_CURRENCY,
 			)
 
 		try {
-			this.#currency = currency
+			this.#currency = +new Decimal(currency)
 		} catch (error) {
 			console.error(error)
 		}
@@ -243,4 +263,66 @@ export default class Boldor {
 			lang: this.#lang,
 		}
 	}
+	/**
+	 * Add the numbers
+	 * @param {Array<number>} [numbers=[]] numbers
+	 * @returns {Boldor}
+	 */
+	add(numbers = []) {
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1)
+			throw ErrorHandler.totalInvalidArguments(0, 1)
+
+		if (!Array.isArray(numbers)) {
+			throw ErrorHandler.invalid('data type', 'object')
+		} else {
+			const ALLOWED_DATA_TYPE = 'number'
+			const dataTypes = getDataTypes(numbers)
+
+			for (let index = -1; ++index < dataTypes.length; )
+				if (dataTypes[index] !== ALLOWED_DATA_TYPE)
+					throw ErrorHandler.invalid(
+						'data type',
+						'Array<number>',
+					)
+		}
+
+		try {
+			if (TOTAL_ARGS === 0 || numbers.length === 0) return this
+
+			let acc = this.#currency
+			for (const number of numbers) acc += +new Decimal(number)
+			this.#currency = acc
+
+			return this
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/**
+	 * Convert and get number
+	 * @return {number} */
+	val() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return +this.#currency
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	format() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return 0
+		} catch (error) {
+			console.error(error)
+		}
+	}
 }
+
+export default Boldor

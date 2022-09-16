@@ -37,10 +37,12 @@
 	"main": "boldor.mjs",
 	"module": "boldor.mjs",
 	"browser": "boldor.js",
+	"types": "boldor.d.ts",
 	"type": "module",
 	"files": [
 		"doc",
 		"src",
+		"boldor.d.ts",
 		"boldor.js",
 		"boldor.mjs",
 		"README.md",

@@ -6,3 +6,9 @@
 
 - _Set_ and _Get_ values have been added to the class
   properties.
+
+# V0.1.4
+
+# New methods have been added:
+- add() // Add a list of numbers.
+- val() // Converts and you get the numeric value of the currency.

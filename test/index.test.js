@@ -4,14 +4,9 @@ console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	precision: 3,
-	currency: 12,
+	currency: 2,
 })
 
-// Example
-boldor.currency = 25     // => value of currency
-boldor.precision = 0    //  => it will have no decimal values
-boldor.separator = ' ' //   => whitespace
-boldor.lang = 'none'  //    => no currency symbol
+const prices = [2, 2, 2, 2]
 
-console.log(boldor.getProps())
+console.log(boldor.add(prices).val()) // 10

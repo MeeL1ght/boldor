@@ -19,13 +19,6 @@ export const ALLOWED_LANG_VALUES = [
 	'es',
 	'spanish',
 ]
-/** @const {Array<string>} DEFAULT_DATA_TYPES_ALLOWED */
-export const DEFAULT_DATA_TYPES_ALLOWED = [
-	'number|string',
-	'number',
-	'string',
-	'string',
-]
 /** @const {Array<string>} ALLOWED_PROPS_NAMES */
 export const ALLOWED_PROPS_NAMES = [
 	'currency',

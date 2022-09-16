@@ -1,13 +1,7 @@
 import { getValuesWithDoubleQuotes } from '../utils/get-values-with-double-quotes.js'
-import { DEFAULT_DATA_TYPES_ALLOWED } from './setup.js'
 
 const BOLDOR_ERROR = '[BoldorError]'
 const DEFAULT_ERROR_MESSAGE = 'There was a problem.'
-const DEFAULT_DATA_TYPES_PROPS_MESSAGE =
-	`currency => '${DEFAULT_DATA_TYPES_ALLOWED.at(0)}', ` +
-	`precision => '${DEFAULT_DATA_TYPES_ALLOWED.at(1)}', ` +
-	`separator => '${DEFAULT_DATA_TYPES_ALLOWED.at(2)}', ` +
-	`lang => '${DEFAULT_DATA_TYPES_ALLOWED.at(-1)}'`
 
 /**
  * @class
@@ -138,40 +132,6 @@ export default class ErrorHandler {
 		const message =
 			`${BOLDOR_ERROR} The ${refName} is invalid. ` +
 			`[Allowed]: ${getValuesWithDoubleQuotes(list)}.`
-
-		return Error(message)
-	}
-	/**
-	 * @param {Array<string>} propNamesList
-	 * @return {Error}
-	 */
-	dataTypeInvalidProperty(propNamesList = []) {
-		const finalPropNamesList =
-			propNamesList.length === 0
-				? DEFAULT_DATA_TYPES_PROPS_MESSAGE
-				: getValuesWithDoubleQuotes(propNamesList)
-
-		this.#message =
-			`${
-				this.#boldorError
-			} The data type of a property is invalid. ` +
-			`[Allowed data types]: ${finalPropNamesList}.`
-
-		return Error(this.#message)
-	}
-	/**
-	 * @param {Array<string>} propNamesList
-	 * @return {Error}
-	 */
-	static dataTypeInvalidProperty(propNamesList = []) {
-		const finalPropNamesList =
-			propNamesList.length === 0
-				? DEFAULT_DATA_TYPES_PROPS_MESSAGE
-				: getValuesWithDoubleQuotes(propNamesList)
-
-		const message =
-			`${BOLDOR_ERROR} The data type of a property is invalid. ` +
-			`[Allowed data types]: ${finalPropNamesList}.`
 
 		return Error(message)
 	}
