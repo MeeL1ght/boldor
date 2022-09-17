@@ -31,3 +31,7 @@
 - subtract()   // Substract number
 - multiply()  // Multiply number
 - divide()   // Divide number
+
+# v0.1.6
+
+## Fixed some bugs
