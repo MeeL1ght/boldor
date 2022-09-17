@@ -4,9 +4,7 @@ console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	currency: 2,
+	currency: 8,
 })
 
-const prices = [2, 2, 2, 2]
-
-console.log(boldor.add(prices).val()) // 10
+console.log(boldor.divide(2).val()) // 4

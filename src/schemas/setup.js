@@ -15,6 +15,7 @@ export const ALLOWED_SEPARATOR_VALUES = [
 /** @const {Array<string>} LANG_VALUES */
 export const ALLOWED_LANG_VALUES = [
 	'en',
+  'en-us',
 	'english',
 	'es',
 	'spanish',

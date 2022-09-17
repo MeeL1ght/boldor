@@ -3,16 +3,15 @@ import { getValuesWithDoubleQuotes } from '../utils/get-values-with-double-quote
 const BOLDOR_ERROR = '[BoldorError]'
 const DEFAULT_ERROR_MESSAGE = 'There was a problem.'
 
-/**
- * @class
- */
+/** Error Handler */
 export default class ErrorHandler {
+	// Attributes
 	#message
 	#boldorError
 	/**
 	 * @param {object} setup
-	 * @param {string} setup.message
-	 * @param {boolean} setup.isChaining
+	 * @param {string} [setup.message=DEFAULT_ERROR_MESSAGE]
+	 * @param {boolean} [setup.isChaining=false]
 	 */
 	constructor(
 		setup = {
@@ -61,24 +60,24 @@ export default class ErrorHandler {
 		let argumentsMessage = ''
 
 		if (min === 0 && max === 0) {
-			tempMessage = 'No argument expected'
-			argumentsMessage = tempMessage
-		}
-
-		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
-			argumentsMessage = `Expected: ${tempMessage}`
-			tempMessage = `[min: ${min}] & [max: ${max}]`
-		} else if (min === 0 && max === 0 && min === max) {
-			argumentsMessage = `Arguments to expect: `
-			tempMessage = `[total: ${max}]`
+			argumentsMessage = 'No argument expected'
+			tempMessage = ''
 		} else {
-			argumentsMessage = `Expected: ${tempMessage}`
-			tempMessage = `[max: ${max}]`
+			if (
+				(min === 0 && max !== 0) ||
+				(min !== 0 && max !== 0)
+			) {
+				argumentsMessage = `Expected: ${tempMessage}`
+				tempMessage = `[min: ${min}] & [max: ${max}]`
+			} else {
+				argumentsMessage = `Expected: ${tempMessage}`
+				tempMessage = `[max: ${max}]`
+			}
 		}
 
 		this.#message = `${
 			this.#boldorError
-		} Total invalid arguments. ${argumentsMessage}.`
+		} Total invalid arguments. ${argumentsMessage}${tempMessage}.`
 
 		return Error(this.#message)
 	}
@@ -92,22 +91,22 @@ export default class ErrorHandler {
 		let argumentsMessage = ''
 
 		if (min === 0 && max === 0) {
-			tempMessage = 'No argument expected'
-			argumentsMessage = tempMessage
-		}
-
-		if ((min === 0 && max !== 0) || (min !== 0 && max !== 0)) {
-			argumentsMessage = `Expected: ${tempMessage}`
-			tempMessage = `[min: ${min}] & [max: ${max}]`
-		} else if (min === 0 && max === 0 && min === max) {
-			argumentsMessage = `Arguments to expect: `
-			tempMessage = `[total: ${max}]`
+			argumentsMessage = 'No argument expected'
+			tempMessage = ''
 		} else {
-			argumentsMessage = `Expected: ${tempMessage}`
-			tempMessage = `[max: ${max}]`
+			if (
+				(min === 0 && max !== 0) ||
+				(min !== 0 && max !== 0)
+			) {
+				argumentsMessage = `Expected: ${tempMessage}`
+				tempMessage = `[min: ${min}] & [max: ${max}]`
+			} else {
+				argumentsMessage = `Expected: ${tempMessage}`
+				tempMessage = `[max: ${max}]`
+			}
 		}
 
-		const message = `${BOLDOR_ERROR} Total invalid arguments. ${argumentsMessage}.`
+		const message = `${BOLDOR_ERROR} Total invalid arguments. ${argumentsMessage}${tempMessage}.`
 
 		return Error(message)
 	}
@@ -156,6 +155,22 @@ export default class ErrorHandler {
 		const message =
 			`${BOLDOR_ERROR} The value is out of range. ` +
 			`[Allowed] => [min: ${min}] & [max: ${max}].`
+
+		return Error(message)
+	}
+	/** @return {Error} */
+	divisionByZero() {
+		this.#message =
+			`${BOLDOR_ERROR} Cannot be divided by zero. ` +
+			`[Tip] => The divisor must be a nonzero number.`
+
+		return Error(this.#message)
+	}
+	/** @return {Error} */
+	static divisionByZero() {
+		const message =
+			`${BOLDOR_ERROR} Cannot be divided by zero. ` +
+			`[Tip] => The divisor must be a nonzero number.`
 
 		return Error(message)
 	}
