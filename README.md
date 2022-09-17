@@ -1,6 +1,4 @@
-# boldor
-
-![build gh pages](https://github.com/MeeL1ght/boldor/actions/workflows/pages.yml/badge.svg)
+# boldor ![Build Status](https://img.shields.io/github/workflow/status/mdo/github-buttons/CI/master?label=CI&logo=github)
 
 <h2>
   A
@@ -33,12 +31,12 @@ Requirements:
 
 Development process:
 
-```
-npm i boldor
+```bash
+$ npm i boldor
 ```
 
 or
 
-```
-yarn add boldor
+```bash
+$ yarn add boldor
 ```

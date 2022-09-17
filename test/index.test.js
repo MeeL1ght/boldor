@@ -4,7 +4,11 @@ console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	currency: 8,
+	currency: 10.123456789,
+	lang: 'en',
+	precision: 2,
 })
 
-console.log(boldor.divide(2).val()) // 4
+boldor.setup({ lang: 'en-us' })
+
+console.log(boldor.getProps())

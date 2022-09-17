@@ -10,7 +10,7 @@ export declare class Boldor {
 	/**
 	 * Create a price.
 	 * @constructor
-	 * @param {object} setup
+	 * @param {object} [setup={}]
 	 * @param {number} [setup.currency=DEFAULT_CURRENCY]
 	 * @param {number} [setup.precision=DEFAULT_PRECISION]
 	 * @param {string} [setup.separator=DEFAULT_SEPARATOR]
@@ -24,6 +24,24 @@ export declare class Boldor {
 			lang: DEFAULT_LANG,
 		},
 	)
+
+	/**
+	 * Configure property settings
+	 * @param {object} [props={}]
+	 * @param {number} [props.currency=this.#currency]
+	 * @param {number} [props.precision=#precision]
+	 * @param {string} [props.separator=#separator]
+	 * @param {string} [props.lang=this.#lang]
+	 * @return {Boldor}
+	 */
+	setup(
+		props: object = {
+			currency: DEFAULT_CURRENCY,
+			precision: DEFAULT_PRECISION,
+			separator: DEFAULT_SEPARATOR,
+			lang: DEFAULT_LANG,
+		},
+	): Boldor
 
 	/** @return {number} */
 	get currency(): number
@@ -49,34 +67,31 @@ export declare class Boldor {
 	/** @param {string} lang */
 	set lang(lang: string): void
 
-	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
-	getProps(): object
-
 	/**
 	 * Add number
 	 * @param {number} [currency=0]
-	 * @returns {Boldor}
+	 * @return {Boldor}
 	 */
-	add(numbers: Array<number> = []): Boldor
+	add(currency: number = 0): Boldor
 
 	/**
 	 * Subtract number
 	 * @param {number} [currency=0]
-	 * @returns {Boldor}
+	 * @return {Boldor}
 	 */
 	subtract(currency: number = 0): Boldor
 
 	/**
 	 * Multiply number
 	 * @param {number} [currency=1]
-	 * @returns {Boldor}
+	 * @return {Boldor}
 	 */
 	multiply(currency: number = 1): Boldor
 
 	/**
 	 * Divide number
 	 * @param {number} [currency=1]
-	 * @returns {Boldor}
+	 * @return {Boldor}
 	 */
 	divide(currency: number = 1): Boldor
 
@@ -84,6 +99,9 @@ export declare class Boldor {
 	 * Convert and get number
 	 * @return {number} */
 	val(): number
+
+	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
+	getProps(): object
 }
 
 export default Boldor
