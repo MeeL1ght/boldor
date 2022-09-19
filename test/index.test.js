@@ -4,11 +4,13 @@ console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	currency: 10.123456789,
+	currency: 0.12,
 	lang: 'en',
-	precision: 2,
+	precision: 4,
 })
 
-boldor.setup({ lang: 'en-us' })
+boldor.setup({
+	precision: 3,
+})
 
 console.log(boldor.getProps())

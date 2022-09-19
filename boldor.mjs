@@ -27,7 +27,9 @@ import { isValidDataType } from './src/utils/is-valid-data-type.js'
 import { hasValue } from './src/utils/has-value.js'
 import { isNotOnTheSecondList } from './src/utils/is-not-on-the-second-list.js'
 import { hasProp } from './src/utils/has-prop.js'
+import { isNumber } from './src/utils/is-number.js'
 import { isDecimal } from './src/utils/is-decimal.js'
+import { toNumber } from './src/utils/to-number.js'
 
 /** The class represents a currency.
  * Currencies => (bolivar & dollar).
@@ -70,10 +72,9 @@ export default class Boldor {
 			)
 
 		// currency validation
-		if (hasProp(setup, 'currency')) {
+		if (hasProp(setup, 'currency'))
 			if (!isValidDataType(setup.currency, ['number']))
 				throw ErrorHandler.invalid('data type', 'number')
-		}
 		// precision validation
 		if (hasProp(setup, 'precision')) {
 			if (!isValidDataType(setup.precision, ['number']))
@@ -136,7 +137,7 @@ export default class Boldor {
 	 */
 	setup(
 		props = {
-			currency: this.currency,
+			currency: this.#currency,
 			precision: this.#precision,
 			separator: this.#separator,
 			lang: this.#lang,
@@ -156,16 +157,15 @@ export default class Boldor {
 			)
 
 		// currency validation
-		if (hasProp(props, 'currency')) {
-			if (!isValidDataType(props?.currency, ['number']))
+		if (hasProp(props, 'currency'))
+			if (!isValidDataType(props.currency, ['number']))
 				throw ErrorHandler.invalid('data type', 'number')
-		}
 		// precision validation
 		if (hasProp(props, 'precision')) {
 			if (!isValidDataType(props.precision, ['number']))
 				throw ErrorHandler.invalid('data type', 'number')
 
-			if (isDecimal(setup.precision))
+			if (isDecimal(props.precision))
 				throw ErrorHandler.errorMessage(
 					'Cannot be a decimal value',
 				)
@@ -344,7 +344,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc += +new Decimal(currency)
+			acc += toNumber(new Decimal(currency))
 			this.#currency = acc
 
 			return this
@@ -370,7 +370,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc -= +new Decimal(currency)
+			acc -= toNumber(new Decimal(currency))
 			this.#currency = acc
 
 			return this
@@ -396,7 +396,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc *= +new Decimal(currency)
+			acc *= toNumber(new Decimal(currency))
 			this.#currency = acc
 
 			return this
@@ -429,12 +429,35 @@ export default class Boldor {
 			}
 
 			let acc = this.#currency
-			acc /= +new Decimal(currency)
+			acc /= toNumber(new Decimal(currency))
 			this.#currency = acc
 
 			return this
 		} catch (error) {
 			console.error(error)
+		}
+	}
+	/**
+	 * Determines whether the value is a decimal number
+	 * @return {boolean}
+	 */
+	isDecimal() {
+		if (arguments.length !== 0)
+			throw ErrorHandler.totalInvalidArguments(0, 0)
+
+		try {
+			return isDecimal(this.#currency)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
+	getProps() {
+		return {
+			currency: this.#currency,
+			precision: this.#precision,
+			separator: this.#separator,
+			lang: this.#lang,
 		}
 	}
 	/**
@@ -445,28 +468,39 @@ export default class Boldor {
 			throw ErrorHandler.totalInvalidArguments(0, 0)
 
 		try {
-			return +this.#currency
+			return toNumber(this.#currency)
 		} catch (error) {
 			console.error(error)
 		}
 	}
-	// Soon
-	/* format() {
+	/**
+	 * Determines whether the value is a number
+	 * @param {string|number} value
+	 * @return {boolean}
+	 */
+	static isNumber(value) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
 		try {
-			return +new Decimal(this.#currency).toFixed(
-				this.#precision,
-			)
+			return isNumber(value)
 		} catch (error) {
 			console.error(error)
 		}
-	} */
-	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
-	getProps() {
-		return {
-			currency: this.#currency,
-			precision: this.#precision,
-			separator: this.#separator,
-			lang: this.#lang,
+	}
+	/**
+	 * Determines whether the value is a decimal number
+	 * @param {string|number} value
+	 * @return {boolean}
+	 */
+	static isDecimal(value) {
+		if (arguments.length !== 1)
+			throw ErrorHandler.totalInvalidArguments(1, 1)
+
+		try {
+			return isDecimal(value)
+		} catch (error) {
+			console.error(error)
 		}
 	}
 }

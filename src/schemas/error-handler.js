@@ -161,7 +161,7 @@ export default class ErrorHandler {
 	/** @return {Error} */
 	divisionByZero() {
 		this.#message =
-			`${BOLDOR_ERROR} Cannot be divided by zero. ` +
+			`${this.#boldorError} Cannot be divided by zero. ` +
 			`[Tip] => The divisor must be a nonzero number.`
 
 		return Error(this.#message)

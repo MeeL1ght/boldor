@@ -1,6 +1,6 @@
 {
 	"name": "boldor",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Work with the bolivar and the dollar as currencies in your projects.",
 	"repository": {
 		"type": "git",
