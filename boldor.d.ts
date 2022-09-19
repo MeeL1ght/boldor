@@ -104,9 +104,9 @@ export declare class Boldor {
 	 * Determines whether the value is a decimal number
 	 * @return {boolean}
 	 */
-	 isDecimal(): boolean
+	isDecimal(): boolean
 
-	 /**
+	/**
 	 * Convert and get number
 	 * @return {number} */
 	val(): number
@@ -123,7 +123,7 @@ export declare class Boldor {
 	 * @param {string|number} value
 	 * @return {boolean}
 	 */
-	 static isDecimal(value: string | number ): boolean
+	static isDecimal(value: string | number): boolean
 
 	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
 	getProps(): object
