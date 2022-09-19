@@ -4,7 +4,7 @@ import ErrorHandler from '../schemas/error-handler.js'
  * @param {string|Array<string>} list
  * @return {string}
  */
-export const getValuesWithDoubleQuotes = list => {
+export function getValuesWithDoubleQuotes(list) {
 	if (typeof list === 'string') return `"${list}"`
 
 	if (!Array.isArray(list))

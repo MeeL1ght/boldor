@@ -69,3 +69,11 @@
   decimal number
 
 ## Fixed some bugs 🐞
+
+<br>
+<br>
+<br>
+
+# **v0.1.8**
+
+## Fixed some bugs 🐞

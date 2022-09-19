@@ -1,5 +1,5 @@
 /*
- * boldor v0.1.6
+ * boldor v0.1.8
  * Work with the bolivar and dollar as currencies in your projects.
  * https://github.com/MeeL1ght/boldor
  * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
@@ -344,7 +344,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc += toNumber(new Decimal(currency))
+			acc += +new Decimal(currency)
 			this.#currency = acc
 
 			return this
@@ -370,7 +370,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc -= toNumber(new Decimal(currency))
+			acc -= +new Decimal(currency)
 			this.#currency = acc
 
 			return this
@@ -396,7 +396,7 @@ export default class Boldor {
 			if (TOTAL_ARGS === 0) return this
 
 			let acc = this.#currency
-			acc *= toNumber(new Decimal(currency))
+			acc *= +new Decimal(currency)
 			this.#currency = acc
 
 			return this
@@ -429,7 +429,7 @@ export default class Boldor {
 			}
 
 			let acc = this.#currency
-			acc /= toNumber(new Decimal(currency))
+			acc /= +new Decimal(currency)
 			this.#currency = acc
 
 			return this

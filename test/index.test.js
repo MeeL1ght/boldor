@@ -14,3 +14,5 @@ boldor.setup({
 })
 
 console.log(boldor.getProps())
+console.log()
+console.log(boldor.add(0.12).val())

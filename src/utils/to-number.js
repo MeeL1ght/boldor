@@ -2,9 +2,7 @@ import { isNumber } from './is-number.js'
 
 /**
  * Convert to number
- * @param {number|string} value
+ * @param {number|string} x
  * @return {number}
  */
-export function toNumber(value) {
-	return !isNumber(value) ? +value : value
-}
+export const toNumber = x => (!isNumber(x) ? +x : x)
