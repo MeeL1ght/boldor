@@ -1,31 +1,13 @@
-import ErrorHandler from '../schemas/error-handler.js'
 import { isNumber } from './is-number.js'
-import { isValidDataType } from './is-valid-data-type.js'
-import { toNumber } from './to-number.js'
 
 /**
  * Determines whether the value is a decimal number
- * @param {string|number} value
+ * @param {string|number} x
  * @return {boolean}
  */
-export function isDecimal(value) {
-	if (!isNumber(value))
-		throw ErrorHandler.errorMessage(
-			'The value to be received is neither a number nor a string',
-		)
+export function isDecimal(x) {
+	if (!isNumber(x)) return false
+	if (typeof x === 'string') return +x % 1 !== 0
 
-	const dataType = typeof value
-	const allowedDataTypes = ['number', 'string']
-
-	if (!isValidDataType(dataType, allowedDataTypes))
-		throw ErrorHandler.invalid('data type', allowedDataTypes)
-
-	try {
-		if (typeof value === 'string')
-			return toNumber(value) % 1 !== 0
-
-		return value % 1 !== 0
-	} catch (error) {
-		console.error(error)
-	}
+	return x % 1 !== 0
 }

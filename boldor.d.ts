@@ -1,8 +1,3 @@
-const DEFAULT_CURRENCY: number = 0
-const DEFAULT_PRECISION: number = 2
-const DEFAULT_SEPARATOR: string = '.'
-const DEFAULT_LANG: string = 'en'
-
 /** The class represents a currency.
  * Currencies => (bolivar & dollar).
  */
@@ -15,11 +10,11 @@ export declare class Boldor {
 	/**
 	 * Create a price.
 	 * @constructor
-	 * @param {object} [setup={}]
-	 * @param {number} [setup.currency=DEFAULT_CURRENCY]
-	 * @param {number} [setup.precision=DEFAULT_PRECISION]
-	 * @param {string} [setup.separator=DEFAULT_SEPARATOR]
-	 * @param {string} [setup.lang=DEFAULT_LANG]
+	 * @param {object} setup
+	 * @param {number} setup.currency
+	 * @param {number} setup.precision
+	 * @param {string} setup.separator
+	 * @param {string} setup.lang
 	 */
 	constructor(
 		setup: object = {
@@ -32,11 +27,11 @@ export declare class Boldor {
 
 	/**
 	 * Configure property settings
-	 * @param {object} [props={}]
-	 * @param {number} [props.currency=this.#currency]
-	 * @param {number} [props.precision=this.#precision]
-	 * @param {string} [props.separator=this.#separator]
-	 * @param {string} [props.lang=this.#lang]
+	 * @param {object} props
+	 * @param {number} props.currency
+	 * @param {number} props.precision
+	 * @param {string} props.separator
+	 * @param {string} props.lang
 	 * @return {Boldor}
 	 */
 	setup(
@@ -52,25 +47,25 @@ export declare class Boldor {
 	get currency(): number
 
 	/** @param {number} currency */
-	set currency(currency: number): void
+	setCurrency(currency: number): void
 
 	/** @return {number} */
 	get precision(): number
 
 	/** @param {number} precision */
-	set precision(precision: number): void
+	setPrecision(precision: number): void
 
 	/** @return {string} */
 	get separator(): string
 
 	/** @param {string} separator */
-	set separator(separator: string): void
+	setSeparator(separator: string): void
 
 	/** @return {string} */
 	get lang(): string
 
 	/** @param {string} lang */
-	set lang(lang: string): void
+	setLang(lang: string): void
 
 	/**
 	 * Add number
@@ -99,6 +94,13 @@ export declare class Boldor {
 	 * @return {Boldor}
 	 */
 	divide(currency: number = 1): Boldor
+
+	/**
+	 * Number Module
+	 * @param {number} [currency=1]
+	 * @return {Boldor}
+	 */
+	modulo(currency: number = 1): Boldor
 
 	/**
 	 * Determines whether the value is a decimal number

@@ -1,18 +1,20 @@
+import { intPart } from '../src/utils/int-part.js'
+import { decimalPart } from '../src/utils/decimal-part.js'
 import Boldor from './../boldor.mjs'
 
 console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	currency: 0.12,
+	currency: 120.8881887,
 	lang: 'en',
-	precision: 4,
+	precision: 2,
+	separators: ['.', ','],
 })
 
-boldor.setup({
-	precision: 3,
-})
-
+// SOLUCIONAR PROBLEMA AL MOSTRAR LOS SEPARADORES
 console.log(boldor.getProps())
 console.log()
-console.log(boldor.add(0.12).val())
+console.log(intPart(boldor.currency))
+console.log(decimalPart(boldor.currency))
+// console.log(boldor.format())
