@@ -32,11 +32,11 @@ Requirements:
 Development process:
 
 ```bash
-$ npm i boldor
+npm i boldor
 ```
 
 or
 
 ```bash
-$ yarn add boldor
+yarn add boldor
 ```
