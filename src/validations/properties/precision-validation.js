@@ -3,31 +3,41 @@ import { isDecimal } from '../../utils/is-decimal.js'
 import { isValidDataType } from '../../utils/is-valid-data-type.js'
 
 /**
- * @param {number} value
+ * @param {number|string} value
  * @return {void}
  */
 export function catchPrecisionErrors(value) {
-	if (!isValidDataType(value, 'number'))
+	if (!isValidDataType(value, ['number', 'string']))
 		throw new BoldorError().invalid('data type')
 
-	if (isDecimal(value))
-		throw new BoldorError().throwMessage(
-			'Cannot be a decimal value',
-		)
+	if (isValidDataType(value, 'number')) {
+		if (isDecimal(value))
+			throw new BoldorError().throwMessage(
+				'Cannot be a decimal value',
+			)
 
-	if (value < 0 || value > 12)
-		throw new BoldorError().valueOutOfRange()
+		if (value < 0 || value > 12)
+			throw new BoldorError().valueOutOfRange()
+	}
+
+	if (value.toLowerCase() !== 'full')
+		throw new BoldorError().invalid('value')
 }
 
 /**
- * @param {number} value
+ * @param {number|string} value
  * @return {boolean}
  */
 export function isValidPrecision(value) {
-	return !isValidDataType(value, 'number') ||
-		isDecimal(value) ||
-		value < 0 ||
-		value > 12
-		? false
-		: true
+	if (!isValidDataType(value, ['number', 'string']))
+		return false
+
+	if (isValidDataType(value, 'number')) {
+		if (isDecimal(value)) return false
+		if (value < 0 || value > 12) return false
+	}
+
+	value = value + ''.toLowerCase()
+
+	return value !== 'full'
 }

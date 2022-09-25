@@ -26,6 +26,7 @@ import { utils } from './src/utils/index.js'
 // Validations
 import { verify } from './src/validations/index.js'
 
+// Optional to configure separator settings
 export { Separators }
 
 /** The class represents a currency.
@@ -35,7 +36,7 @@ export default class Boldor {
 	/** @type {number} @private */
 	#currency
 
-	/** @type {number} @private */
+	/** @type {number|string} @private */
 	#precision
 
 	/** @type {Separators|Array<string>} @private */
@@ -49,7 +50,7 @@ export default class Boldor {
 	 * @constructor
 	 * @param {object} setup
 	 * @param {number} setup.currency
-	 * @param {number} setup.precision
+	 * @param {number|string} setup.precision
 	 * @param {Array<string>|Separators} setup.separators
 	 * @param {string} setup.lang
 	 */
@@ -66,7 +67,7 @@ export default class Boldor {
 		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		const propNames = Object.keys(setup)
-		const { currency, precision, separators, lang } = setup
+		let { currency, precision, separators, lang } = setup
 
 		// [*] Validations
 		if (!verify.areValidPropertyNames(propNames))
@@ -93,6 +94,14 @@ export default class Boldor {
 				currency ?? DEFAULT_CURRENCY,
 			)
 
+			if (precision.toLowerCase() === 'full')
+				precision = utils.decimalPart(
+					currency ?? DEFAULT_CURRENCY,
+					{
+						withPoint: false,
+					},
+				).length
+
 			this.#precision = precision ?? DEFAULT_PRECISION
 
 			if (Array.isArray(separators))
@@ -118,7 +127,7 @@ export default class Boldor {
 	 * Configure property settings
 	 * @param {object} props
 	 * @param {number} props.currency
-	 * @param {number} props.precision
+	 * @param {number|string} props.precision
 	 * @param {Array<string>|Separators} props.separators
 	 * @param {string} props.lang
 	 * @return {Boldor}
@@ -160,6 +169,15 @@ export default class Boldor {
 
 		try {
 			this.#currency = +new Decimal(currency ?? this.#currency)
+
+			if (precision.toLowerCase() === 'full')
+				precision = utils.decimalPart(
+					currency ?? this.#currency,
+					{
+						withPoint: false,
+					},
+				).length
+
 			this.#precision = precision ??= this.#precision
 
 			if (Array.isArray(separators))
@@ -224,7 +242,7 @@ export default class Boldor {
 		}
 	}
 	/**
-	 * @param {number} precision
+	 * @param {number|string} precision
 	 * @return {Boldor}
 	 */
 	setPrecision(precision = this.#precision) {
@@ -236,6 +254,11 @@ export default class Boldor {
 			verify.catchPrecisionErrors(precision)
 
 		try {
+			if (precision.toLowerCase() === 'full')
+				precision = utils.decimalPart(this.#currency, {
+					withPoint: false,
+				}).length
+
 			this.#precision = precision ?? this.#precision
 
 			return this
@@ -491,44 +514,23 @@ export default class Boldor {
 		}
 	}
 	/**
-	 * @param {string} [type='string']
+	 * Get the currency format
 	 * @return {string}
 	 */
-	/* format(type = 'string') {
-		if (arguments.length > 1)
+	format() {
+		if (arguments.length !== 0)
 			throw new BoldorError().totalInvalidArguments()
 
-		if (!utils.isValidDataType(type, 'string'))
-			throw ErrorHandler.invalid('data type', 'string')
-
-		const allowedValues = ['number', 'string', 'str']
-		type = type.toLowerCase()
-
-		if (!utils.hasValue(allowedValues, type))
-			throw ErrorHandler.invalid('value', allowedValues)
-
 		try {
-			//const getFormat = new Decimal(this.#currency).toFixed(
-			//this.#precision,
-			//)
-
-			// PENDIENTE, HACER EL REEMPLAZO DEL SEPARADOR
-			const currencyStr = utils.addSeparators({
+			return utils.addSeparators({
 				currency: this.#currency,
 				precision: this.#precision,
 				separators: this.#separators,
 			})
-
-			const [, ...allowedStringValues] = allowedValues
-
-			if (utils.hasValue(allowedStringValues, type))
-				return currencyStr
-
-			return currencyStr
 		} catch (error) {
 			console.error(error)
 		}
-	} */
+	}
 	/**
 	 * Determines whether the value is a number
 	 * @param {string|number} value
