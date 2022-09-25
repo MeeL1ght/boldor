@@ -55,15 +55,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"scripts": {
-		"test": "npx nodemon ./test/index.test.js",
-		"pretty": "prettier -w ./**/*.js"
-	},
 	"dependencies": {
 		"decimal.js-light": "^2.5.1"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.19",
-		"prettier": "^2.7.1"
 	}
 }
