@@ -1,5 +1,5 @@
 export const DEFAULT_CURRENCY = 0
-export const DEFAULT_PRECISION = 2
+export const DEFAULT_PRECISION = 'full'
 export const DEFAULT_SEPARATOR = '.'
 export const DEFAULT_LANG = 'en'
 /** @const {Array<string>} */
