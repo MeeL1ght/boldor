@@ -1,10 +1,10 @@
 {
 	"name": "boldor",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"author": {
 		"name": "Moi",
 		"email": "meelight12@gmail.com",
-		"url": "https://www.github.com/MeeL1ght"
+		"url": "https://github.com/MeeL1ght"
 	},
 	"description": "Work with the bolivar and the dollar as currencies in your projects.",
 	"repository": {
@@ -30,11 +30,11 @@
 		{
 			"name": "Moi",
 			"email": "meelight12@gmail.com",
-			"url": "https://www.github.com/MeeL1ght"
+			"url": "https://github.com/MeeL1ght"
 		},
 		{
 			"name": "Devl12",
-			"url": "https://www.github.com/DEVL12"
+			"url": "https://github.com/DEVL12"
 		}
 	],
 	"license": "MIT",

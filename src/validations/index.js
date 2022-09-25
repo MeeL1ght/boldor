@@ -25,6 +25,8 @@ import {
 	catchErrorsPropertyNames,
 } from './properties/are-valid-property-names.js'
 
+import { catchErrorsTotalArguments } from './properties/total-invalid-arguments.js'
+
 /** @const {object} */
 export const verify = {
 	isValidCurrency,
@@ -39,4 +41,5 @@ export const verify = {
 	catchSeparatorErrors,
 	catchLangErrors,
 	catchErrorsPropertyNames,
+	catchErrorsTotalArguments,
 }

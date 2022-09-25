@@ -4,12 +4,12 @@ import { getNumberCut } from './get-number-cut.js'
 /**
  * Get integer part
  * @param {number|string} x
- * @return {number|string}
+ * @return {string}
  */
 export function intPart(x) {
 	const positionOfThePoint = getPositionOfThePoint(x)
 
-	return +getNumberCut({
+	return getNumberCut({
 		value: x,
 		position: positionOfThePoint,
 		cutType: 'int',

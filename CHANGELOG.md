@@ -77,3 +77,9 @@
 # **v0.1.8**
 
 ## Fixed some bugs 🐞
+
+# **v1.0.0**
+
+## ✔️ **New** methods have been added:
+
+- **modulo()** // Get the module of an operation

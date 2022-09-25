@@ -1,10 +1,19 @@
+import { Separators } from './src/schemas/separators.js'
+
 /** The class represents a currency.
  * Currencies => (bolivar & dollar).
  */
 export declare class Boldor {
+	/** @type {number} @private */
 	#currency: number
+
+	/** @type {number} @private */
 	#precision: number
-	#separator: string
+
+	/** @type {Separators|Array<string>} @private */
+	#separators: string
+
+	/** @type {string} @private */
 	#lang: string
 
 	/**
@@ -13,14 +22,14 @@ export declare class Boldor {
 	 * @param {object} setup
 	 * @param {number} setup.currency
 	 * @param {number} setup.precision
-	 * @param {string} setup.separator
+	 * @param {Array<string>|Separators} setup.separators
 	 * @param {string} setup.lang
 	 */
 	constructor(
 		setup: object = {
 			currency: DEFAULT_CURRENCY,
 			precision: DEFAULT_PRECISION,
-			separator: DEFAULT_SEPARATOR,
+			separators: [DEFAULT_SEPARATOR, DEFAULT_SEPARATOR],
 			lang: DEFAULT_LANG,
 		},
 	)
@@ -30,7 +39,7 @@ export declare class Boldor {
 	 * @param {object} props
 	 * @param {number} props.currency
 	 * @param {number} props.precision
-	 * @param {string} props.separator
+	 * @param {Array<string>|Separators} props.separators
 	 * @param {string} props.lang
 	 * @return {Boldor}
 	 */
@@ -55,11 +64,14 @@ export declare class Boldor {
 	/** @param {number} precision */
 	setPrecision(precision: number): void
 
-	/** @return {string} */
-	get separator(): string
+	/** @return {Array<string>|Separators} */
+	get separators(): string
 
-	/** @param {string} separator */
-	setSeparator(separator: string): void
+	/**
+	 * @param {Array<string>|Separators} separators
+	 * @return {Boldor}
+	 * */
+	setSeparator(separators: Array<string> | Separators): void
 
 	/** @return {string} */
 	get lang(): string
@@ -127,7 +139,7 @@ export declare class Boldor {
 	 */
 	static isDecimal(value: string | number): boolean
 
-	/** @return {{ currency: number, precision: number, separator: string, lang: string }} */
+	/** @return {{ currency: number, precision: number, separators: Array<string>|Separators, lang: string }} */
 	getProps(): object
 }
 

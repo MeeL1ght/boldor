@@ -1,5 +1,5 @@
 /*
- * boldor v1.0.0
+ * boldor v1.1.0
  * Work with the bolivar and dollar as currencies in your projects.
  * https://github.com/MeeL1ght/boldor
  * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
@@ -61,9 +61,9 @@ export default class Boldor {
 			lang: DEFAULT_LANG,
 		},
 	) {
-		// Checking the total number of arguments
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		const propNames = Object.keys(setup)
 		const { currency, precision, separators, lang } = setup
@@ -131,9 +131,9 @@ export default class Boldor {
 			lang: this.#lang,
 		},
 	) {
-		// Checking the total number of arguments
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		const propNames = Object.keys(props)
 		let { currency, precision, separators, lang } = props
@@ -181,8 +181,9 @@ export default class Boldor {
 	}
 	/** @return {number} */
 	get currency() {
-		if (arguments.length !== 0)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0) verify.catchErrorsTotalArguments()
 
 		try {
 			return this.#currency
@@ -195,8 +196,9 @@ export default class Boldor {
 	 * @return {Boldor}
 	 */
 	setCurrency(currency = this.#currency) {
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -211,8 +213,9 @@ export default class Boldor {
 	}
 	/** @return {number} */
 	get precision() {
-		if (arguments.length !== 0)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0) verify.catchErrorsTotalArguments()
 
 		try {
 			return this.#precision
@@ -225,8 +228,9 @@ export default class Boldor {
 	 * @return {Boldor}
 	 */
 	setPrecision(precision = this.#precision) {
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidPrecision(precision))
 			verify.catchPrecisionErrors(precision)
@@ -241,8 +245,9 @@ export default class Boldor {
 	}
 	/** @return {Array<string>|Separators} */
 	get separators() {
-		if (arguments.length !== 0)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0) verify.catchErrorsTotalArguments()
 
 		try {
 			return this.#separators
@@ -255,8 +260,9 @@ export default class Boldor {
 	 * @return {Boldor}
 	 * */
 	setSeparators(separators = this.#separators) {
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidSeparator(separators))
 			verify.catchSeparatorErrors(separators)
@@ -277,8 +283,9 @@ export default class Boldor {
 	}
 	/** @return {string} */
 	get lang() {
-		if (arguments.length !== 0)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0) verify.catchErrorsTotalArguments()
 
 		try {
 			return this.#lang
@@ -291,8 +298,9 @@ export default class Boldor {
 	 * @return {Boldor}
 	 */
 	setLang(lang = this.#lang) {
-		if (arguments.length > 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidLang(separators))
 			verify.catchLangErrors(separators)
@@ -313,8 +321,7 @@ export default class Boldor {
 	add(currency = 0) {
 		const TOTAL_ARGS = arguments.length
 
-		if (TOTAL_ARGS > 1)
-			throw new BoldorError().totalInvalidArguments()
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -339,8 +346,7 @@ export default class Boldor {
 	subtract(currency = 0) {
 		const TOTAL_ARGS = arguments.length
 
-		if (TOTAL_ARGS > 1)
-			throw new BoldorError().totalInvalidArguments()
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -365,8 +371,7 @@ export default class Boldor {
 	multiply(currency = 1) {
 		const TOTAL_ARGS = arguments.length
 
-		if (TOTAL_ARGS > 1)
-			throw new BoldorError().totalInvalidArguments()
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -391,8 +396,7 @@ export default class Boldor {
 	divide(currency = 1) {
 		const TOTAL_ARGS = arguments.length
 
-		if (TOTAL_ARGS > 1)
-			throw new BoldorError().totalInvalidArguments()
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -424,8 +428,7 @@ export default class Boldor {
 	modulo(currency = 1) {
 		const TOTAL_ARGS = arguments.length
 
-		if (TOTAL_ARGS > 1)
-			throw new BoldorError().totalInvalidArguments()
+		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
 		if (!verify.isValidCurrency(currency))
 			verify.catchCurrencyErrors(currency)
@@ -454,7 +457,9 @@ export default class Boldor {
 	 * @return {boolean}
 	 */
 	isDecimal() {
-		if (arguments.length !== 0)
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0)
 			throw new BoldorError().totalInvalidArguments()
 
 		try {
@@ -475,8 +480,9 @@ export default class Boldor {
 	 * Convert and get number
 	 * @return {number} */
 	val() {
-		if (arguments.length !== 0)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 0) verify.catchErrorsTotalArguments()
 
 		try {
 			return +this.#currency
@@ -488,7 +494,7 @@ export default class Boldor {
 	 * @param {string} [type='string']
 	 * @return {string}
 	 */
-	format(type = 'string') {
+	/* format(type = 'string') {
 		if (arguments.length > 1)
 			throw new BoldorError().totalInvalidArguments()
 
@@ -522,15 +528,16 @@ export default class Boldor {
 		} catch (error) {
 			console.error(error)
 		}
-	}
+	} */
 	/**
 	 * Determines whether the value is a number
 	 * @param {string|number} value
 	 * @return {boolean}
 	 */
 	static isNumber(value) {
-		if (arguments.length !== 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 1) verify.catchErrorsTotalArguments()
 
 		try {
 			return isNumber(value)
@@ -544,8 +551,9 @@ export default class Boldor {
 	 * @return {boolean}
 	 */
 	static isDecimal(value) {
-		if (arguments.length !== 1)
-			throw new BoldorError().totalInvalidArguments()
+		const TOTAL_ARGS = arguments.length
+
+		if (TOTAL_ARGS !== 1) verify.catchErrorsTotalArguments()
 
 		try {
 			return isDecimal(value)
