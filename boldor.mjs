@@ -1,9 +1,5 @@
-/*
-<<<<<<< HEAD
+/**
  * boldor v1.0.10
-=======
- * boldor v1.0.9
->>>>>>> 9b504d8421a86aa4ea678cadbd0d9be5589fa4bb
  * Work with the bolivar and dollar as currencies in your projects.
  * https://github.com/MeeL1ght/boldor
  * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
