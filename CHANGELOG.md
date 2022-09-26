@@ -82,23 +82,11 @@
 <br>
 <br>
 
-# **v1.0.9**
-
-## ✔️ **New** methods have been added:
-
-- **modulo()** // Get the module of an operation
-<<<<<<< HEAD
-
-<br>
-<br>
-<br>
 
 # **v1.0.9**
 
 ## ✔️ **New** methods have been added:
 
-=======
->>>>>>> 9b504d8421a86aa4ea678cadbd0d9be5589fa4bb
 - **format()** // Format the currency value with the separators
   you set in your setup
 
