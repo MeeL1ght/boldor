@@ -25,10 +25,15 @@ export function separateCurrency({
 	str,
 	separator = '.',
 }) {
-	if (+fullStr > 999 && precision > 0)
+	if (isDecimal(+fullStr) && precision > 0)
 		return addSeparator(str, separator)
 
-	return str
+	if (isDecimal(+fullStr) && precision === 0) return str
+
+	if (!isDecimal(+fullStr) && +fullStr > 999)
+		return addSeparator(fullStr, separator)
+
+	return fullStr
 }
 
 /**

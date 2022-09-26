@@ -5,8 +5,8 @@ console.clear()
 
 // (!) Run with nodemon script
 const boldor = new Boldor({
-	separators: new Separators(['.', ',']),
-	currency: 546.123,
+	separators: new Separators([',']),
+	currency: 5000,
 })
 
 boldor.setup({
@@ -15,4 +15,4 @@ boldor.setup({
 
 console.log(boldor.getSetup())
 console.log()
-console.log(boldor.format())
+console.log(boldor.add(5000).format())
