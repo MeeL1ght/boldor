@@ -15,7 +15,7 @@
   currencies in your projects.
 </h2>
 
-<img src="./img/boldor-logo.png" style="height: 320px; width: 320px">
+<img src="./img/boldor-oficial-logo.png" style="height: 320px; width: 320px">
 
 ### For this library to work, you need to work with `Javascript modules`.
 
