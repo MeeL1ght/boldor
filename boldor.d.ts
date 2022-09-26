@@ -19,38 +19,26 @@ export declare class Boldor {
 	/**
 	 * Create a price.
 	 * @constructor
-	 * @param {object} setup
-	 * @param {number} setup.currency
-	 * @param {number|string} setup.precision
-	 * @param {Array<string>|Separators} setup.separators
-	 * @param {string} setup.lang
+	 * @param {{ currency: number, precision: number|string, separators: Array<string>|Separators, lang: string }} setup
 	 */
-	constructor(
-		setup: object = {
-			currency: DEFAULT_CURRENCY,
-			precision: DEFAULT_PRECISION,
-			separators: [DEFAULT_SEPARATOR, DEFAULT_SEPARATOR],
-			lang: DEFAULT_LANG,
-		},
-	)
+	constructor(setup: {
+		currency: number
+		precision: number | string
+		separators: Array<string> | Separators
+		lang: string
+	})
 
 	/**
 	 * Configure property settings
-	 * @param {object} props
-	 * @param {number} props.currency
-	 * @param {number|string} props.precision
-	 * @param {Array<string>|Separators} props.separators
-	 * @param {string} props.lang
+	 * @param {{ currency: number, precision: number|string, separators: Array<string>|Separators, lang: string }} props
 	 * @return {Boldor}
 	 */
-	setup(
-		props: object = {
-			currency: this.#currency,
-			precision: this.#precision,
-			separator: this.#separator,
-			lang: this.#lang,
-		},
-	): Boldor
+	setup(props: {
+		currency: number
+		precision: number | string
+		separators: Array<string> | Separators
+		lang: string
+	}): Boldor
 
 	/** @return {number} */
 	get currency(): number
@@ -127,6 +115,11 @@ export declare class Boldor {
 	format(): string
 
 	/**
+	 * Get setup of currency
+	 * @return {object} */
+	getSetup(): object
+
+	/**
 	 * Convert and get number
 	 * @return {number} */
 	val(): number
@@ -144,9 +137,6 @@ export declare class Boldor {
 	 * @return {boolean}
 	 */
 	static isDecimal(value: string | number): boolean
-
-	/** @return {{ currency: number, precision: number, separators: Array<string>|Separators, lang: string }} */
-	getProps(): object
 }
 
 // Optional to configure separator settings

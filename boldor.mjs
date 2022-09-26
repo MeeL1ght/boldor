@@ -1,5 +1,5 @@
 /*
- * boldor v1.1.0
+ * boldor v1.0.10
  * Work with the bolivar and dollar as currencies in your projects.
  * https://github.com/MeeL1ght/boldor
  * Copyright (c) 2022 Moises Reyes <meelight12@gmail.com>
@@ -48,26 +48,33 @@ export default class Boldor {
 	/**
 	 * Create a price.
 	 * @constructor
-	 * @param {object} setup
-	 * @param {number} setup.currency
-	 * @param {number|string} setup.precision
-	 * @param {Array<string>|Separators} setup.separators
-	 * @param {string} setup.lang
+	 * @param {{ currency: number, precision: number|string, separators: Array<string>|Separators, lang: string }} setup
 	 */
-	constructor(
-		setup = {
-			currency: DEFAULT_CURRENCY,
-			precision: DEFAULT_PRECISION,
-			separators: [DEFAULT_SEPARATOR, DEFAULT_SEPARATOR],
-			lang: DEFAULT_LANG,
-		},
-	) {
+	constructor(setup) {
 		const TOTAL_ARGS = arguments.length
+
+		const propsDoNotExist =
+			!setup?.currency ||
+			!setup?.precision ||
+			!setup?.separators ||
+			!setup?.lang
+
+		if (TOTAL_ARGS === 0 || propsDoNotExist)
+			setup = {
+				currency: setup?.currency ?? DEFAULT_CURRENCY,
+				precision: setup?.precision ?? DEFAULT_PRECISION,
+				separators: setup?.separators ?? [
+					DEFAULT_SEPARATOR,
+					DEFAULT_SEPARATOR,
+				],
+				lang: setup?.lang ?? DEFAULT_LANG,
+			}
 
 		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
-		const propNames = Object.keys(setup)
+		const { 0: restOfTheArgs } = arguments
 		let { currency, precision, separators, lang } = setup
+		const propNames = Object.keys(restOfTheArgs)
 
 		// [*] Validations
 		if (!verify.areValidPropertyNames(propNames))
@@ -94,15 +101,18 @@ export default class Boldor {
 				currency ?? DEFAULT_CURRENCY,
 			)
 
-			if (precision.toLowerCase() === 'full')
-				precision = utils.decimalPart(
-					currency ?? DEFAULT_CURRENCY,
-					{
-						withPoint: false,
-					},
-				).length
+			if (['full', 'FULL'].includes(precision))
+				if (utils.isDecimal(this.#currency)) {
+					precision = utils.decimalPart(
+						currency ?? this.#currency,
+						{
+							withPoint: false,
+						},
+					).length
+				} else if (!utils.isDecimal(this.#currency))
+					precision = 0
 
-			this.#precision = precision ?? DEFAULT_PRECISION
+			this.#precision = precision
 
 			if (Array.isArray(separators))
 				this.#separators = separators ?? [
@@ -125,27 +135,31 @@ export default class Boldor {
 	}
 	/**
 	 * Configure property settings
-	 * @param {object} props
-	 * @param {number} props.currency
-	 * @param {number|string} props.precision
-	 * @param {Array<string>|Separators} props.separators
-	 * @param {string} props.lang
+	 * @param {{ currency: number, precision: number|string, separators: Array<string>|Separators, lang: string }} props
 	 * @return {Boldor}
 	 */
-	setup(
-		props = {
-			currency: this.#currency,
-			precision: this.#precision,
-			separators: this.#separators,
-			lang: this.#lang,
-		},
-	) {
+	setup(props) {
 		const TOTAL_ARGS = arguments.length
+
+		const propsDoNotExist =
+			!props?.currency ||
+			!props?.precision ||
+			!props?.separators ||
+			!props?.lang
+
+		if (TOTAL_ARGS === 0 || propsDoNotExist)
+			props = {
+				currency: props?.currency ?? this.#currency,
+				precision: props?.precision ?? this.#precision,
+				separators: props?.separators ?? this.#separators,
+				lang: props?.lang ?? this.#lang,
+			}
 
 		if (TOTAL_ARGS > 1) verify.catchErrorsTotalArguments()
 
-		const propNames = Object.keys(props)
+		const { 0: restOfTheArgs } = arguments
 		let { currency, precision, separators, lang } = props
+		const propNames = Object.keys(restOfTheArgs)
 
 		// [*] Validations
 		if (!verify.areValidPropertyNames(propNames))
@@ -170,15 +184,18 @@ export default class Boldor {
 		try {
 			this.#currency = +new Decimal(currency ?? this.#currency)
 
-			if (precision.toLowerCase() === 'full')
-				precision = utils.decimalPart(
-					currency ?? this.#currency,
-					{
-						withPoint: false,
-					},
-				).length
+			if (['full', 'FULL'].includes(precision))
+				if (utils.isDecimal(this.#currency)) {
+					precision = utils.decimalPart(
+						currency ?? this.#currency,
+						{
+							withPoint: false,
+						},
+					).length
+				} else if (!utils.isDecimal(this.#currency))
+					precision = 0
 
-			this.#precision = precision ??= this.#precision
+			this.#precision = precision
 
 			if (Array.isArray(separators))
 				this.#separators = separators ?? this.#separators
@@ -491,7 +508,10 @@ export default class Boldor {
 			console.error(error)
 		}
 	}
-	getProps() {
+	/**
+	 * Get setup of currency
+	 * @return {object} */
+	getSetup() {
 		return {
 			currency: this.#currency,
 			precision: this.#precision,
