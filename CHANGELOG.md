@@ -97,16 +97,15 @@
 import Boldor, { Separators } from 'boldor'
 
 const myCashSetup = {
-  currency: 120000.25,
-  precision: 'full',
-  separators: new Separators(['.', ',']), // Or ['.', ',']
-  lang: 'en',
+	currency: 120000.25,
+	precision: 'full',
+	separators: new Separators(['.', ',']), // Or ['.', ',']
+	lang: 'en',
 }
 
 const myCash = new Boldor(myCashSetup)
 
 console.log(myCash.format()) // Output: 120.000,25
-
 ```
 
 <br>
@@ -122,5 +121,13 @@ console.log(myCash.format()) // Output: 120.000,25
 <br>
 
 # **v1.0.11**
+
+## Fixed some bugs 🐞
+
+<br>
+<br>
+<br>
+
+# **v1.0.12**
 
 ## Fixed some bugs 🐞
