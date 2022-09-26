@@ -82,7 +82,7 @@
 <br>
 <br>
 
-# **v1.0.0**
+# **v1.0.9**
 
 ## ✔️ **New** methods have been added:
 
