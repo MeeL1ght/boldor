@@ -82,10 +82,6 @@
 <br>
 <br>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 25ffc54a382740765eace91b10d5753239c61040
 # **v1.0.9**
 
 ## ✔️ **New** methods have been added:
