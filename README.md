@@ -1,4 +1,6 @@
-# boldor ![Build Status](https://img.shields.io/github/workflow/status/mdo/github-buttons/CI/master?label=CI&logo=github)
+# boldor
+
+![example branch parameter](https://github.com/MeeL1ght/boldor/actions/workflows/pages.yml/badge.svg?event=push)
 
 <h2>
   A
@@ -8,8 +10,8 @@
   >
     decimal.js-light
   </a> based library. Work with the
-  <span style="color: #e6d073">Bs bolivar</span> and the
-  <span style="color: #6fca49">💲 dollar</span> as
+  <span>Bs bolivar</span> and the
+  <span>💲 dollar</span> as
   currencies in your projects.
 </h2>
 
@@ -34,8 +36,8 @@ Development process:
 ```bash
 npm i boldor
 ```
-
-or
+Or
+<br>
 
 ```bash
 yarn add boldor

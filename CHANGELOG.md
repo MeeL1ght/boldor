@@ -92,7 +92,7 @@
 <br>
 <br>
 
-# **v1.1.0**
+# **v1.0.9**
 
 ## ✔️ **New** methods have been added:
 
@@ -118,3 +118,11 @@ const myCash = new Boldor(myCashSetup)
 console.log(myCash.format()) // Output: 120.000,25
 
 ```
+
+<br>
+<br>
+<br>
+
+# **v1.0.10**
+
+## Fixed some bugs 🐞
