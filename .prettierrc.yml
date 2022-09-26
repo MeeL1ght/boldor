@@ -5,12 +5,12 @@ useTabs: true
 singleQuote: true
 quoteProps: 'as-needed'
 printWidth: 63
-trailingComma: 'all' # default: "es5"
+trailingComma: 'all'
 bracketSpacing: true
 bracketSameLine: true
 arrowParens: 'avoid'
 requirePragma: false
 insertPragma: false
-proseWrap: 'always' # default: "preserve"
+proseWrap: 'always'
 embeddedLanguageFormatting: 'auto'
 endOfLine: 'lf'
