@@ -1,0 +1,11 @@
+# Setup
+
+# Pug
+pugBracketSpacing: true
+pugBracketSameLine: true
+pugPrintWidth: 58
+pugSemi: false
+pugSingleQuote: true
+pugTabWidth: 2
+pugUseTabs: false
+pugArrowParens: 'avoid'

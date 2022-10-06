@@ -1,0 +1,21 @@
+{
+  "name": "page",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pug": "^3.0.2",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^2.2.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "prettier": "^2.7.1",
+    "vite": "^3.1.0"
+  }
+}

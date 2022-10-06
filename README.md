@@ -2,6 +2,8 @@
 
 ![example branch parameter](https://github.com/MeeL1ght/boldor/actions/workflows/pages.yml/badge.svg?event=push)
 
+![downloads boldor npm](https://img.shields.io/npm/dt/boldor?style=flat-square)
+
 <h2>
   A
   <a
